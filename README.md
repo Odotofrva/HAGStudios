@@ -1,3 +1,5 @@
+Link::  https://odotofrva.github.io/HAGStudios/
+
 ### RT Gaming
 
 Today starts the day where OdotNYC starts diving down the rabbit hole called ‘indie game development’ to truly get a grasp on the skillset. For some time now I’ve always wanted to build a game and felt it was only mandatory that I do that. What are the first steps to the game development journey you ask? Well I first had to start off by doing much research and understanding of game development itself. The times have changed and now the power of building many games can be done right within your home. In my case, I wanted to start learning and then build a gaming studio that will focus on building amazing games. Welp, let’s first start talking about the game development and the many things researched.
