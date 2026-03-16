@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hacim Alyn Indie Gaming Studios</title>
+  <meta
+    name="description"
+    content="Hacim Alyn Indie Gaming Studios builds futuristic and fun indie games in 2D and 3D."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="HacimAlyn.png" />
+  <link rel="shortcut icon" href="HacimAlyn.png" />
+  <link rel="apple-touch-icon" href="HacimAlyn.png" />
+
+  <style>
+    :root {
+      --bg: #040404;
+      --bg-soft: #0a0d12;
+      --panel: rgba(8, 12, 20, 0.86);
+      --panel-2: rgba(10, 15, 25, 0.95);
+      --line: rgba(255, 255, 255, 0.1);
+
+      --text: #f6f3ea;
+      --muted: #c5c7ce;
+
+      --cream: #f1eadc;
+      --blue: #00a3ff;
+      --blue-deep: #0b5ea8;
+      --orange: #ff5a00;
+      --gold: #ffc400;
+      --gold-2: #ffd84d;
+      --red: #ff3b30;
+
+      --success: #34d399;
+      --danger: #ff5b5b;
+
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --max-width: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 90, 0, 0.12), transparent 20%),
+        radial-gradient(circle at 85% 12%, rgba(0, 163, 255, 0.14), transparent 22%),
+        radial-gradient(circle at 60% 70%, rgba(255, 196, 0, 0.08), transparent 24%),
+        linear-gradient(180deg, #020202 0%, #06080d 35%, #05070b 100%);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .game-font {
+      font-family: "Orbitron", sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .accent-gradient {
+      background: linear-gradient(90deg, var(--cream), var(--gold-2), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-pad {
+      padding: 56px 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--gold), var(--orange));
+      color: #080808;
+      box-shadow: 0 14px 30px rgba(255, 90, 0, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-blue {
+      background: linear-gradient(90deg, var(--blue), var(--blue-deep));
+      color: white;
+      box-shadow: 0 14px 30px rgba(0, 163, 255, 0.22);
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .panel {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(255, 196, 0, 0.12), transparent 20%),
+        radial-gradient(circle at center, rgba(0, 163, 255, 0.12), transparent 30%),
+        linear-gradient(180deg, #000000, #05070b);
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-inner {
+      text-align: center;
+      width: min(88vw, 440px);
+    }
+
+    .loader-logo {
+      width: 300px;
+      margin: 0 auto 18px;
+      filter: drop-shadow(0 0 18px rgba(255, 196, 0, 0.22))
+              drop-shadow(0 0 26px rgba(0, 163, 255, 0.2));
+      animation: pulseLogo 1.8s infinite ease-in-out;
+    }
+
+    .loader-title {
+      font-size: clamp(1.45rem, 4vw, 2.4rem);
+      margin-bottom: 8px;
+      color: var(--cream);
+    }
+
+    .loader-sub {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .loader-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    .loader-progress {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--blue), var(--gold), var(--orange));
+      box-shadow: 0 0 24px rgba(255, 196, 0, 0.35);
+      animation: progressBar 3s linear forwards;
+    }
+
+    @keyframes progressBar {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    /* NAV */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      backdrop-filter: blur(14px);
+      background: rgba(2, 4, 8, 0.82);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand img {
+    width: 92px;
+    height: 92px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px;
+    box-shadow: 0 0 24px rgba(255, 196, 0, 0.12);
+    }
+
+    .brand-copy h1 {
+      font-size: 1.25rem;
+      color: var(--cream);
+    }
+
+    .brand-copy p {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 0.92rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-2);
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(90deg, rgba(0,163,255,0.08), rgba(255,90,0,0.08));
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-inner {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      gap: 18px;
+    }
+
+    .ticker-label {
+      flex: 0 0 auto;
+      padding-right: 18px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      align-items: center;
+      gap: 40px;
+      min-width: max-content;
+      padding-left: 24px;
+      animation: tickerMove 35s linear infinite;
+    }
+
+    .ticker-item {
+      color: var(--cream);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .ticker-item span {
+      color: var(--blue);
+      margin-right: 8px;
+    }
+
+    @keyframes tickerMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* HERO */
+    .hero {
+      padding: 64px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      background: rgba(0, 163, 255, 0.08);
+      border: 1px solid rgba(0, 163, 255, 0.18);
+      color: #dbefff;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .hero h2 {
+      font-size: clamp(2.5rem, 6vw, 5.2rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+      color: var(--cream);
+    }
+
+    .hero p {
+      max-width: 690px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1.03rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      min-width: 160px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+      color: var(--gold);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(10, 15, 25, 0.1), rgba(0, 0, 0, 0.78)),
+        url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,163,255,0.12), transparent 30%),
+        linear-gradient(0deg, rgba(255,90,0,0.12), transparent 35%);
+      pointer-events: none;
+    }
+
+    .hero-visual-card {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(3, 5, 8, 0.72);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-visual-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.45rem;
+      color: var(--cream);
+    }
+
+    .hero-visual-card p {
+      margin-bottom: 14px;
+      font-size: 0.96rem;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .chip {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    /* SECTION TITLES */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .section-head h3 {
+      font-size: clamp(1.8rem, 4.2vw, 3.1rem);
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    /* GAMES */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .game-media {
+      height: 220px;
+      overflow: hidden;
+      background: #0b1018;
+    }
+
+    .game-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .game-body {
+      padding: 20px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .meta span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--cream);
+    }
+
+    .game-body h4 {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      color: var(--gold-2);
+    }
+
+    .game-body p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .text-link {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    /* BETA */
+    .beta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .beta-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      background: rgba(255,196,0,0.08);
+      border: 1px solid rgba(255,196,0,0.18);
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    .member-lock {
+      border: 1px dashed rgba(255,255,255,0.14);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(0,163,255,0.05), rgba(255,90,0,0.05)),
+        rgba(255,255,255,0.02);
+      min-height: 420px;
+      padding: 28px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .member-lock h4 {
+      font-size: 1.7rem;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .member-lock p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 18px;
+    }
+
+    .beta-auth {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .beta-auth input {
+      min-width: 280px;
+      min-height: 50px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      outline: none;
+    }
+
+    .beta-auth input::placeholder {
+      color: #9aa0aa;
+    }
+
+    .beta-frame {
+      display: none;
+      min-height: 420px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #05070b;
+    }
+
+    .beta-frame.active {
+      display: block;
+    }
+
+    .beta-placeholder {
+      width: 100%;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at center, rgba(0,163,255,0.08), transparent 24%),
+        linear-gradient(180deg, #07111c, #05070b);
+    }
+
+    .beta-placeholder h5 {
+      font-size: 1.5rem;
+      color: var(--gold-2);
+      margin-bottom: 8px;
+    }
+
+    .beta-placeholder p {
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .beta-error,
+    .beta-success {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .beta-error {
+      color: var(--danger);
+    }
+
+    .beta-success {
+      color: var(--success);
+    }
+
+    /* GALLERY */
+    .gallery-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+
+    .gallery-main {
+      position: relative;
+      min-height: 490px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #0a1018;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(5, 8, 12, 0.78);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .gallery-caption strong {
+      display: block;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .gallery-caption p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .thumb {
+      position: relative;
+      min-height: 160px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #0a1018;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .thumb:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,196,0,0.3);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .thumb span {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.72);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--cream);
+    }
+
+    /* DOCS */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .doc-card {
+      padding: 22px;
+    }
+
+    .doc-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: #06121f;
+      background: linear-gradient(90deg, var(--gold), var(--orange));
+    }
+
+    .doc-card h4 {
+      margin-bottom: 8px;
+      color: var(--cream);
+    }
+
+    .doc-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    /* DISCORD */
+    .discord-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .discord-copy p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .discord-copy ul {
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    .discord-embed {
+      min-height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .discord-embed iframe {
+      width: 100%;
+      min-height: 520px;
+      border: 0;
+    }
+
+    /* CTA */
+    .cta-box {
+      padding: 30px;
+      text-align: center;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(0,163,255,0.12), rgba(255,196,0,0.1), rgba(255,90,0,0.12)),
+        rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h3 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 12px;
+      color: var(--cream);
+    }
+
+    .cta-box p {
+      max-width: 760px;
+      margin: 0 auto 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 30px 0 42px;
+    }
+
+    .footer-row {
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .beta-grid,
+      .gallery-layout,
+      .discord-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .games-grid,
+      .docs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-actions .btn,
+      .beta-auth input,
+      .beta-auth .btn {
+        width: 100%;
+      }
+
+      .games-grid,
+      .docs-grid,
+      .thumb-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .ticker-label {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <img src="logo.png" alt="Hacim Alyn logo" class="loader-logo" />
+      <div class="loader-title game-font">Hacim Alyn Studios</div>
+      <div class="loader-sub">Loading worlds, systems, and beta access...</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <img src="logo.png" alt="Hacim Alyn logo" />
+        <div class="brand-copy">
+          <h1 class="game-font">Hacim Alyn</h1>
+          <p>Indie Gaming Studios</p>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#games">Games</a>
+        <a href="#beta">Beta Access</a>
+        <a href="#screens">Screenshots</a>
+        <a href="#docs">Game Notes</a>
+        <a href="#community">Discord</a>
+        <a href="#contact" class="btn btn-primary">Join In</a>
+      </nav>
+    </div>
+
+    <div class="ticker-wrap">
+      <div class="container ticker-inner">
+        <div class="ticker-label game-font">Gaming News</div>
+        <div class="ticker-track" id="tickerTrack">
+          <!-- ticker injected by JS -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">⚡ Futuristic + fun indie game development</div>
+          <h2 class="game-font">
+            BUILDING <span class="accent-gradient">2D + 3D WORLDS</span>
+            FOR PLAYERS WHO LOVE STYLE
+          </h2>
+          <p>
+            Hacim Alyn Indie Gaming Studios is building original game experiences with a bold
+            arcade-futuristic identity. Follow our development journey, view our active titles,
+            explore design notes, join the Discord community, and unlock members-only beta access.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#games" class="btn btn-primary">View Our Titles</a>
+            <a href="#beta" class="btn btn-blue">Member Beta Access</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong class="game-font">3</strong>
+              <span>Games in active development</span>
+            </div>
+            <div class="stat">
+              <strong class="game-font">2D / 3D</strong>
+              <span>Futuristic gameplay styles</span>
+            </div>
+            <div class="stat">
+              <strong class="game-font">Members</strong>
+              <span>Exclusive beta access system</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-visual-card">
+            <div class="chip-row">
+              <span class="chip">Member Beta</span>
+              <span class="chip">Discord Community</span>
+              <span class="chip">Dev Notes</span>
+            </div>
+            <h3 class="game-font">Studio Worlds In Progress</h3>
+            <p>
+              Spotlight your lead title here with a trailer still, gameplay teaser image,
+              or a cinematic render from your latest build.
+            </p>
+            <a href="#screens" class="btn btn-secondary">See Screenshots</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section id="games" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Current Titles</h3>
+            <p>
+              Showcase the three games being built under the studio. Each card can link to its own future page,
+              screenshot gallery, devlog, and private beta track.
+            </p>
+          </div>
+        </div>
+
+        <div class="games-grid">
+          <article class="card">
+            <div class="game-media">
+              <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80" alt="Title One Name" />
+            </div>
+            <div class="game-body">
+              <div class="meta">
+                <span>3D Action</span>
+                <span>Beta Soon</span>
+                <span>PC</span>
+              </div>
+              <h4 class="game-font">Title One</h4>
+              <p>
+                Fast movement, futuristic environments, intense encounters, and a high-energy visual identity.
+              </p>
+              <div class="link-row">
+                <a href="#screens" class="text-link">View Screens</a>
+                <a href="#docs" class="text-link">Read Notes</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="game-media">
+              <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=80" alt="Title 2 Placeholder" />
+            </div>
+            <div class="game-body">
+              <div class="meta">
+                <span>2D Adventure</span>
+                <span>Prototype</span>
+                <span>Story Driven</span>
+              </div>
+              <h4 class="game-font">Title Two</h4>
+              <p>
+                A bold and stylish adventure with lore, exploration, evolving mechanics, and memorable characters.
+              </p>
+              <div class="link-row">
+                <a href="#screens" class="text-link">View Screens</a>
+                <a href="#docs" class="text-link">Read Notes</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="game-media">
+              <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=80" alt="Game 3 screenshot placeholder" />
+            </div>
+            <div class="game-body">
+              <div class="meta">
+                <span>Experimental</span>
+                <span>Pre-Production</span>
+                <span>Multiplayer</span>
+              </div>
+              <h4 class="game-font">Title Three</h4>
+              <p>
+                An experimental concept where systems, art direction, and player feedback shape the game in public.
+              </p>
+              <div class="link-row">
+                <a href="#screens" class="text-link">View Screens</a>
+                <a href="#docs" class="text-link">Read Notes</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BETA -->
+    <section id="beta" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Members Only Beta Access</h3>
+            <p>
+              Only approved members can access beta builds. This starter version uses a front-end access gate for preview purposes.
+              Later, you can connect this to Supabase, Firebase Auth, Discord roles, or a private member portal.
+            </p>
+          </div>
+        </div>
+
+        <div class="beta-grid">
+          <div class="panel">
+            <div class="beta-status game-font">Restricted Access • Members Only</div>
+            <h4 class="game-font" style="font-size:1.5rem; margin-bottom:10px; color:var(--cream);">
+              Beta Program Details
+            </h4>
+            <p style="color:var(--muted); line-height:1.75; margin-bottom:16px;">
+              Members get early access to builds, closed feedback forms, patch previews, and the ability
+              to influence game direction before public release.
+            </p>
+
+            <div class="card" style="padding:16px; margin-bottom:12px;">
+              <strong class="game-font" style="color:var(--gold);">Access Includes</strong>
+              <p style="margin-top:8px; color:var(--muted); line-height:1.65;">
+                Private builds, gameplay tests, feedback sessions, early patch notes, and community voting access.
+              </p>
+            </div>
+
+            <div class="card" style="padding:16px; margin-bottom:12px;">
+              <strong class="game-font" style="color:var(--blue);">Recommended Upgrade Later</strong>
+              <p style="margin-top:8px; color:var(--muted); line-height:1.65;">
+                Replace this demo lock with real login + user roles for proper gated beta membership.
+              </p>
+            </div>
+
+            <div class="link-row" style="margin-top:16px;">
+              <a href="#community" class="btn btn-blue">Join Discord First</a>
+              <a href="#contact" class="btn btn-secondary">Apply For Beta</a>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div id="betaLock" class="member-lock">
+              <div>
+                <h4 class="game-font">Beta Build Locked</h4>
+                <p>
+                  This game area is available only to members. Enter the beta access code to unlock the playable build area.
+                </p>
+
+                <div class="beta-auth">
+                  <input
+                    id="betaCodeInput"
+                    type="password"
+                    placeholder="Enter member access code"
+                    aria-label="Member access code"
+                  />
+                  <button id="unlockBetaBtn" class="btn btn-primary">Unlock Beta</button>
+                </div>
+
+                <div id="betaMessage"></div>
+              </div>
+            </div>
+
+            <div id="betaFrame" class="beta-frame">
+              <div class="beta-placeholder">
+                <div>
+                  <h5 class="game-font">Beta Build Unlocked</h5>
+                  <p>
+                    Replace this area with your real beta embed, WebGL build, itch.io iframe, or secure launcher link.
+                    Members now have access to the playable section.
+                  </p>
+                  <div class="link-row" style="justify-content:center; margin-top:18px;">
+                    <a href="#" class="btn btn-primary">Launch Beta Build</a>
+                    <button id="logoutBetaBtn" class="btn btn-secondary">Lock Beta Again</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section id="screens" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Development Screenshots</h3>
+            <p>
+              Let players see your progress. This section is designed so fans can follow your build journey across all three titles.
+            </p>
+          </div>
+        </div>
+
+        <div class="gallery-layout">
+          <div class="gallery-main">
+            <img
+              id="mainGalleryImage"
+              src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1400&q=80"
+              alt="Main game screenshot"
+            />
+            <div class="gallery-caption">
+              <strong id="mainGalleryTitle" class="game-font">Title One — Combat Test Build</strong>
+              <p id="mainGalleryText">
+                Early gameplay arena lighting, environment pass, and enemy spacing tests.
+              </p>
+            </div>
+          </div>
+
+          <div class="thumb-grid">
+            <button
+              class="thumb"
+              data-img="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1400&q=80"
+              data-title="Title One — Combat Test Build"
+              data-text="Early gameplay arena lighting, environment pass, and enemy spacing tests."
+            >
+              <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=900&q=80" alt="Thumb 1" />
+              <span>Title One</span>
+            </button>
+
+            <button
+              class="thumb"
+              data-img="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80"
+              data-title="Title Two — World Concept"
+              data-text="Mood setting, environment visual language, and exploration scene blocking."
+            >
+              <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Thumb 2" />
+              <span>Title Two</span>
+            </button>
+
+            <button
+              class="thumb"
+              data-img="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1400&q=80"
+              data-title="Title Three — Systems Prototype"
+              data-text="Testing interaction flow, UI rhythms, and multiplayer concept structure."
+            >
+              <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=900&q=80" alt="Thumb 3" />
+              <span>Title Three</span>
+            </button>
+
+            <button
+              class="thumb"
+              data-img="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1400&q=80"
+              data-title="Studio Notes — Visual Pipeline"
+              data-text="Concept sketches, UI direction, gameplay flow notes, and world-building snapshots."
+            >
+              <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80" alt="Thumb 4" />
+              <span>Concepts</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCS -->
+    <section id="docs" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Game Notes & Docs</h3>
+            <p>
+              Link out to design docs, public notes, pitch decks, and story/lore writeups for each title.
+            </p>
+          </div>
+        </div>
+
+        <div class="docs-grid">
+          <article class="card doc-card">
+            <span class="doc-label">Design Doc</span>
+            <h4 class="game-font">Title One — Core Loop</h4>
+            <p>
+              Combat structure, level progression, movement systems, and the visual identity of the world.
+            </p>
+            <a href="#" class="text-link">Open Document</a>
+          </article>
+
+          <article class="card doc-card">
+            <span class="doc-label">Lore Notes</span>
+            <h4 class="game-font">Title Two — Story & World</h4>
+            <p>
+              Characters, story beats, emotional tone, environment ideas, and visual storytelling references.
+            </p>
+            <a href="#" class="text-link">Open Document</a>
+          </article>
+
+          <article class="card doc-card">
+            <span class="doc-label">Devlog</span>
+            <h4 class="game-font">Title Three — Build Tests</h4>
+            <p>
+              Mechanics experiments, roadmap ideas, system tests, and feedback-driven adjustments.
+            </p>
+            <a href="#" class="text-link">Open Document</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCORD -->
+    <section id="community" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Discord Community</h3>
+            <p>
+              Build a home for fans, testers, friends, and collaborators. This should become the core community hub.
+            </p>
+          </div>
+        </div>
+
+        <div class="discord-grid">
+          <div class="panel discord-copy">
+            <h4 class="game-font" style="font-size:1.5rem; margin-bottom:12px; color:var(--cream);">
+              Join The Studio Channel
+            </h4>
+            <p>
+              Use Discord for devlogs, screenshot drops, patch previews, beta key access, community feedback,
+              and direct updates from the studio.
+            </p>
+            <ul>
+              <li>Post weekly development updates</li>
+              <li>Offer members-only beta codes</li>
+              <li>Collect feedback from players early</li>
+              <li>Build studio culture around your games</li>
+            </ul>
+
+            <div class="link-row" style="margin-top:18px;">
+              <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="btn btn-blue">Open Discord</a>
+            </div>
+          </div>
+
+          <div class="discord-embed">
+            <iframe
+              title="Discord Widget"
+              src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark"
+              allowtransparency="true"
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="section-pad">
+      <div class="container">
+        <div class="cta-box">
+          <h3 class="game-font">Join The Future Of Hacim Alyn</h3>
+          <p>
+            Follow the studio, watch the games grow, and become part of the community before the major launches begin.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="mailto:hello@hacimalyn.com" class="btn btn-primary">Contact Studio</a>
+            <a href="#beta" class="btn btn-blue">Request Beta Access</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <p>© 2026 Hacim Alyn Indie Gaming Studios. All Rights Reserved.</p>
+      <p>Built with futuristic fun and indie energy.</p>
+    </div>
+  </footer>
+
+  <script>
+    // LOADER
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      setTimeout(() => {
+        loader.classList.add("hidden");
+      }, 3000);
+    });
+
+    // GALLERY SWAP
+    const thumbs = document.querySelectorAll(".thumb");
+    const mainGalleryImage = document.getElementById("mainGalleryImage");
+    const mainGalleryTitle = document.getElementById("mainGalleryTitle");
+    const mainGalleryText = document.getElementById("mainGalleryText");
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        mainGalleryImage.src = thumb.dataset.img;
+        mainGalleryTitle.textContent = thumb.dataset.title;
+        mainGalleryText.textContent = thumb.dataset.text;
+      });
+    });
+
+    // DEMO MEMBER-ONLY BETA ACCESS
+    // Change this code to anything you want for your preview.
+    // For real security, connect to a backend auth system.
+    const DEMO_BETA_CODE = "HACIMBETA2026";
+
+    const betaCodeInput = document.getElementById("betaCodeInput");
+    const unlockBetaBtn = document.getElementById("unlockBetaBtn");
+    const betaMessage = document.getElementById("betaMessage");
+    const betaLock = document.getElementById("betaLock");
+    const betaFrame = document.getElementById("betaFrame");
+    const logoutBetaBtn = document.getElementById("logoutBetaBtn");
+
+    function showBetaUnlocked() {
+      betaLock.style.display = "none";
+      betaFrame.classList.add("active");
+    }
+
+    function showBetaLocked() {
+      betaLock.style.display = "grid";
+      betaFrame.classList.remove("active");
+    }
+
+    function setMessage(type, text) {
+      betaMessage.innerHTML = "";
+      const el = document.createElement("div");
+      el.className = type === "success" ? "beta-success" : "beta-error";
+      el.textContent = text;
+      betaMessage.appendChild(el);
+    }
+
+    unlockBetaBtn.addEventListener("click", () => {
+      const code = betaCodeInput.value.trim();
+
+      if (!code) {
+        setMessage("error", "Please enter the member access code.");
+        return;
+      }
+
+      if (code === DEMO_BETA_CODE) {
+        localStorage.setItem("hacimBetaUnlocked", "true");
+        setMessage("success", "Access granted. Beta build unlocked.");
+        setTimeout(() => {
+          showBetaUnlocked();
+        }, 400);
+      } else {
+        setMessage("error", "Invalid member code. Access denied.");
+      }
+    });
+
+    betaCodeInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        unlockBetaBtn.click();
+      }
+    });
+
+    if (logoutBetaBtn) {
+      logoutBetaBtn.addEventListener("click", () => {
+        localStorage.removeItem("hacimBetaUnlocked");
+        betaCodeInput.value = "";
+        betaMessage.innerHTML = "";
+        showBetaLocked();
+      });
+    }
+
+    if (localStorage.getItem("hacimBetaUnlocked") === "true") {
+      showBetaUnlocked();
+    } else {
+      showBetaLocked();
+    }
+
+    // GAMING NEWS TICKER
+    // Replace these with live API-fed items later if desired.
+    const gamingNewsItems = [
+      "Mainstream Release Watch: New AAA action title launching this month",
+      "Console Update: Major first-party showcase announced soon",
+      "RPG Fans: Highly anticipated sequel release window revealed",
+      "Multiplayer Spotlight: Competitive shooter season update incoming",
+      "Indie Buzz: Pixel-art breakout title gaining strong attention",
+      "Open World Watch: Big franchise expansion on the horizon",
+      "Strategy News: Beloved classic series rumored for return",
+      "Adventure Update: Story-driven blockbuster gets new gameplay reveal"
+    ];
+
+    const tickerTrack = document.getElementById("tickerTrack");
+
+    function buildTicker(items) {
+      const doubled = [...items, ...items];
+      tickerTrack.innerHTML = doubled
+        .map(item => `<div class="ticker-item"><span>◆</span>${item}</div>`)
+        .join("");
+    }
+
+    buildTicker(gamingNewsItems);
+  </script>
+</body>
+</html>
