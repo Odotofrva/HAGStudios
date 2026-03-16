@@ -9,15 +9,18 @@
     content="Hacim Alyn Indie Gaming Studios builds futuristic and fun indie games in 2D and 3D."
   />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="HacimAlyn.png" />
+  <link rel="shortcut icon" href="HacimAlyn.png" />
+  <link rel="apple-touch-icon" href="HacimAlyn.png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
-  <link rel="icon" type="image/png" href="HacimAlyn.png" />
-  <link rel="shortcut icon" href="HacimAlyn.png" />
-  <link rel="apple-touch-icon" href="HacimAlyn.png" />
 
   <style>
     :root {
@@ -180,11 +183,11 @@
 
     .loader-inner {
       text-align: center;
-      width: min(88vw, 440px);
+      width: min(92vw, 520px);
     }
 
     .loader-logo {
-      width: 300px;
+      width: 260px;
       margin: 0 auto 18px;
       filter: drop-shadow(0 0 18px rgba(255, 196, 0, 0.22))
               drop-shadow(0 0 26px rgba(0, 163, 255, 0.2));
@@ -255,14 +258,14 @@
     }
 
     .brand img {
-    width: 92px;
-    height: 92px;
-    object-fit: contain;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 6px;
-    box-shadow: 0 0 24px rgba(255, 196, 0, 0.12);
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px;
+      box-shadow: 0 0 24px rgba(255, 196, 0, 0.12);
     }
 
     .brand-copy h1 {
@@ -354,6 +357,17 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 26px;
       align-items: center;
+    }
+
+    .hero-logo-wrap {
+      margin-bottom: 18px;
+    }
+
+    .hero-logo {
+      width: 160px;
+      max-width: 40vw;
+      filter: drop-shadow(0 0 20px rgba(255, 196, 0, 0.18))
+              drop-shadow(0 0 30px rgba(0, 163, 255, 0.18));
     }
 
     .eyebrow {
@@ -499,6 +513,41 @@
       color: var(--muted);
       max-width: 720px;
       line-height: 1.7;
+    }
+
+    /* ABOUT STORY */
+    .about-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .story-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: #07101b;
+      background: linear-gradient(90deg, var(--gold), var(--orange));
+    }
+
+    .story-title {
+      font-size: 1.45rem;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .story-copy {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .story-copy strong {
+      color: var(--gold-2);
     }
 
     /* GAMES */
@@ -886,7 +935,8 @@
       .hero-grid,
       .beta-grid,
       .gallery-layout,
-      .discord-grid {
+      .discord-grid,
+      .about-story-grid {
         grid-template-columns: 1fr;
       }
 
@@ -897,14 +947,35 @@
     }
 
     @media (max-width: 760px) {
+      .loader-logo {
+        width: 190px;
+      }
+
       .nav {
         flex-direction: column;
         align-items: flex-start;
         padding: 14px 0;
       }
 
+      .brand img {
+        width: 72px;
+        height: 72px;
+      }
+
+      .brand-copy h1 {
+        font-size: 1.05rem;
+      }
+
+      .brand-copy p {
+        font-size: 0.82rem;
+      }
+
       .hero {
         padding-top: 42px;
+      }
+
+      .hero-logo {
+        width: 120px;
       }
 
       .hero-actions .btn,
@@ -938,7 +1009,7 @@
   <!-- LOADING SCREEN -->
   <div id="loader" aria-hidden="true">
     <div class="loader-inner">
-      <img src="logo.png" alt="Hacim Alyn logo" class="loader-logo" />
+      <img src="HacimAlyn.png" alt="Hacim Alyn logo" class="loader-logo" />
       <div class="loader-title game-font">Hacim Alyn Studios</div>
       <div class="loader-sub">Loading worlds, systems, and beta access...</div>
       <div class="loader-bar">
@@ -951,7 +1022,7 @@
   <header class="site-header">
     <div class="container nav">
       <a href="#top" class="brand">
-        <img src="logo.png" alt="Hacim Alyn logo" />
+        <img src="HacimAlyn.png" alt="Hacim Alyn logo" />
         <div class="brand-copy">
           <h1 class="game-font">Hacim Alyn</h1>
           <p>Indie Gaming Studios</p>
@@ -959,6 +1030,7 @@
       </a>
 
       <nav class="nav-links">
+        <a href="#about-studio">Our Story</a>
         <a href="#games">Games</a>
         <a href="#beta">Beta Access</a>
         <a href="#screens">Screenshots</a>
@@ -971,9 +1043,7 @@
     <div class="ticker-wrap">
       <div class="container ticker-inner">
         <div class="ticker-label game-font">Gaming News</div>
-        <div class="ticker-track" id="tickerTrack">
-          <!-- ticker injected by JS -->
-        </div>
+        <div class="ticker-track" id="tickerTrack"></div>
       </div>
     </div>
   </header>
@@ -983,11 +1053,17 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
+          <div class="hero-logo-wrap">
+            <img src="HacimAlyn.png" alt="Hacim Alyn logo" class="hero-logo" />
+          </div>
+
           <div class="eyebrow">⚡ Futuristic + fun indie game development</div>
+
           <h2 class="game-font">
             BUILDING <span class="accent-gradient">2D + 3D WORLDS</span>
             FOR PLAYERS WHO LOVE STYLE
           </h2>
+
           <p>
             Hacim Alyn Indie Gaming Studios is building original game experiences with a bold
             arcade-futuristic identity. Follow our development journey, view our active titles,
@@ -1033,6 +1109,57 @@
       </div>
     </section>
 
+    <!-- ABOUT STORY -->
+    <section id="about-studio" class="section-pad">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h3 class="game-font">Our Story</h3>
+            <p>
+              The inspiration behind Hacim Alyn Indie Gaming Studios comes from a lifelong
+              love of retro gaming, unforgettable titles, and the dream of creating worlds
+              that leave an impact on players for years to come.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-story-grid">
+          <div class="panel">
+            <div class="story-badge game-font">Retro Roots</div>
+            <h4 class="game-font story-title">Built From Early Gaming Memories</h4>
+            <p class="story-copy">
+              Hacim Alyn Indie Gaming Studios was born from a deep love for gaming that started
+              at an early age. Growing up on retro experiences and legendary titles like
+              <strong>Zelda</strong> and <strong>Pokémon</strong>, gaming became more than entertainment —
+              it became inspiration, imagination, and possibility.
+            </p>
+            <p class="story-copy">
+              Early memories of playing major titles, following iconic game releases, and even
+              taking part in gaming tournaments through places like <strong>Blockbuster</strong>
+              helped shape a real passion for the culture of games. Those moments created a lasting
+              respect for adventure, competition, creativity, and worldbuilding.
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="story-badge game-font">Why We Build</div>
+            <h4 class="game-font story-title">A Father’s Reason To Create</h4>
+            <p class="story-copy">
+              Today, that same passion is being transformed into original 2D and 3D games through
+              Hacim Alyn Indie Gaming Studios. The mission is not only to build fun, stylish,
+              and futuristic game experiences, but also to leave behind something meaningful.
+            </p>
+            <p class="story-copy">
+              At the heart of it all is one powerful reason: the desire for my kids to one day be
+              able to say, <strong>“Our father made a game that went popular.”</strong>
+              That dream fuels the work, the creativity, and the commitment to building games that
+              can inspire others the same way great games inspired me.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- GAMES -->
     <section id="games" class="section-pad">
       <div class="container">
@@ -1049,7 +1176,7 @@
         <div class="games-grid">
           <article class="card">
             <div class="game-media">
-              <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80" alt="Title One Name" />
+              <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80" alt="Game 1 screenshot placeholder" />
             </div>
             <div class="game-body">
               <div class="meta">
@@ -1070,7 +1197,7 @@
 
           <article class="card">
             <div class="game-media">
-              <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=80" alt="Title 2 Placeholder" />
+              <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=80" alt="Game 2 screenshot placeholder" />
             </div>
             <div class="game-body">
               <div class="meta">
@@ -1407,8 +1534,6 @@
     });
 
     // DEMO MEMBER-ONLY BETA ACCESS
-    // Change this code to anything you want for your preview.
-    // For real security, connect to a backend auth system.
     const DEMO_BETA_CODE = "HACIMBETA2026";
 
     const betaCodeInput = document.getElementById("betaCodeInput");
@@ -1477,7 +1602,6 @@
     }
 
     // GAMING NEWS TICKER
-    // Replace these with live API-fed items later if desired.
     const gamingNewsItems = [
       "Mainstream Release Watch: New AAA action title launching this month",
       "Console Update: Major first-party showcase announced soon",
